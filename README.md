@@ -4,6 +4,8 @@ This repository contains a tiny implementation of the Petstore API that can be
 deployed to Cloud Run or another platform to provide a simple target server
 that can be used to test API management systems and clients.
 
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+
 ## Disclaimer
 
 This demonstration is not an officially supported Google product.
