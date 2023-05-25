@@ -26,7 +26,7 @@ SPEC=$(registry get apis/${API_ID}/deployments/${DEPLOYMENT_ID} -o raw | jq .[0]
 PROJECT=$(gcloud config get project)
 REGION=$(gcloud config get run/region)
 
-TMPFILE=$(mktemp /tmp/openapi-XXXXXX.yaml)
+TMPFILE=backend-spec.yaml
 
 registry get $SPEC -o contents > ${TMPFILE}
 yq -i ".x-google-backend.address = \"$ADDRESS\"" ${TMPFILE}
