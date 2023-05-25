@@ -1,0 +1,66 @@
+apiVersion: apigeeregistry/v1
+kind: API
+metadata:
+  name: petstore
+  labels:
+    apihub-business-unit: demo
+    apihub-lifecycle: develop
+    apihub-style: apihub-openapi
+    apihub-target-users: public
+    apihub-team: demo
+    categories: reference
+    provider: apihub-demo
+    source: petstore
+  annotations:
+    apihub-primary-contact: apigee-apihub-demo@google.com
+    apihub-primary-contact-description: Apigee API Hub demo managers
+data:
+  displayName: Petstore API
+  description: Petstore is an OpenAPI demonstration API. It provides a few simple methods for accessing and modifying an inventory of pets.
+  recommendedVersion: 1.0.0
+  versions:
+    - metadata:
+        name: 1.0.0
+        labels:
+          source: petstore
+      data:
+        displayName: 1.0.0
+        state: production
+        primarySpec: openapi
+        specs:
+          - metadata:
+              name: swagger
+              labels:
+                source: petstore
+            data:
+              filename: swagger.yaml
+              mimeType: application/x.openapi+gzip;version=2.0
+              sourceURI: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v2.0/petstore.yaml
+          - metadata:
+              name: openapi
+              labels:
+                source: petstore
+            data:
+              filename: openapi.yaml
+              mimeType: application/x.openapi+gzip;version=3.0.0
+              sourceURI: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
+  artifacts:
+    - kind: ReferenceList
+      metadata:
+        name: apihub-dependencies
+      data:
+        displayName: ""
+        description: Defines a list of dependencies
+        references: []
+    - kind: ReferenceList
+      metadata:
+        name: apihub-related
+      data:
+        displayName: ""
+        description: Defines a list of related resources
+        references:
+          - id: docs
+            displayName: The OpenAPI Initiative
+            category: ""
+            resource: ""
+            uri: https://www.openapis.org/
