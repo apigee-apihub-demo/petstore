@@ -12,7 +12,12 @@ API.
 
 ### Configure your environment.
 
-This demonstration uses the `gcloud` and `registry` tools.
+This demonstration uses the `gcloud` and `registry` tools,
+along with `jq` and `yq` for processing JSON and YAML, respectively. 
+- [`gcloud` installation instructions](https://cloud.google.com/sdk/docs/install)
+- [`registry` installation instructions](https://github.com/apigee/registry#the-registry-tool)
+- [`jq` installation instructions](https://stedolan.github.io/jq/download/)
+- [`yq` installation instructions](https://github.com/mikefarah/yq/#install)
 
 To aid in the following, set the `PROJECT` and `REGION` environment variables
 to your Google Cloud project and the location where you would like to create
