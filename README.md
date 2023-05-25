@@ -53,7 +53,7 @@ to the appropriate project.
 
 ### 1. Register the Petstore API.
 
-The `apis` directory contains API specifications and `registry` metadata to
+The [api](/api) directory contains API specifications and `registry` metadata to
 describe the Petstore API. This can be added to API Hub with the following
 command:
 
