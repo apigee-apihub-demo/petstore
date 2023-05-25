@@ -58,7 +58,7 @@ describe the Petstore API. This can be added to API Hub with the following
 command:
 
 ```
-registry apply -f apis -R
+registry apply -f api -R
 ```
 
 Note that we are loading two API specifications for the same version. The
