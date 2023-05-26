@@ -1,0 +1,55 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Run the registry tool
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # each 12:00 UTC
+  push:
+    branches: [ main ]
+    tags: [ 'v*.*.*' ] # semver release
+
+jobs:
+
+  registry-apply:
+    runs-on: ubuntu-22.04
+
+    env:
+      registry-yaml: entity.yaml
+      workload_identity_provider: "projects/459884772743/locations/global/workloadIdentityPools/registry-actions/providers/registry-provider"
+      service_account: "registry-editor@apigee-apihub-demo.iam.gserviceaccount.com"
+
+    permissions:
+      id-token: write # required for requesting the JWT
+      contents: read # required for actions/checkout
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Google Cloud auth
+      uses: google-github-actions/auth@v1
+      with:
+        workload_identity_provider: ${{ env.workload_identity_provider }}
+        service_account: ${{ env.service_account }}
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+    - uses: apigee/registry/.github/actions/setup-registry@main
+      with:
+        name: cloud
+        project: ${{ env.GCP_PROJECT }} # set by setup-gcloud action
+        address: apigeeregistry.googleapis.com:443
+        insecure: false
+        token-source: gcloud auth print-access-token
+    - name: Apply API to cloud registry
+      run: registry apply -f apis -R
