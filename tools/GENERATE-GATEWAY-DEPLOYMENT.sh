@@ -17,9 +17,10 @@
 
 PROJECT=$(gcloud config get project)
 REGION=$(gcloud config get run/region)
-SPEC_REVISION=$(registry get projects/${PROJECT}/locations/global/apis/petstore/deployments/backend -o raw | jq .[0].apiSpecRevision -r)
 ENDPOINT_ADDRESS=https://$(gcloud api-gateway gateways describe petstore --location ${REGION} --format "value(defaultHostname)")
+SERVICE=$(gcloud api-gateway apis describe petstore --format "value(managedService)")
 
+SPEC_REVISION=$(registry get projects/${PROJECT}/locations/global/apis/petstore/deployments/backend -o raw | jq .[0].apiSpecRevision -r)
 SPEC_REVISION=${SPEC_REVISION#projects/${PROJECT}/locations/global/apis/petstore/versions/}
 
 cat > gateway-deployment.yaml <<EOF
@@ -32,11 +33,14 @@ metadata:
     platform: apigateway
     apihub-gateway: apihub-google-cloud-api-gateway
   annotations:
+    apihub-external-channel-name: API Gateway
     region: $REGION
+    project: $PROJECT
 data:
   displayName: Gateway
   description: An API Gateway deployment of the Bookstore API
   apiSpecRevision: $SPEC_REVISION
   endpointURI: $ENDPOINT_ADDRESS
+  externalChannelURI: https://pantheon.corp.google.com/api-gateway/api/petstore/servicename/$SERVICE/overview?project=$PROJECT
   intendedAudience: Public
 EOF

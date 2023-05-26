@@ -32,11 +32,14 @@ metadata:
     platform: cloudrun
     apihub-gateway: apihub-unmanaged
   annotations:
+    apihub-external-channel-name: Cloud Run
     region: $REGION
+    project: $PROJECT
 data:
   displayName: Backend
   description: The backend deployment of the Petstore API
   apiSpecRevision: 1.0.0/specs/swagger@$REVISION
   endpointURI: $ADDRESS
+  externalChannelURI: https://console.cloud.google.com/run/detail/$REGION/petstore/metrics?project=$PROJECT
   intendedAudience: Internal
 EOF
