@@ -112,7 +112,11 @@ Let's add this gateway to our registry.
 registry apply -f gateway-deployment.yaml
 ```
 
-### 6. (optional) Clean up.
+At this point, you should see a view like this in your API Hub instance:
+
+![image](https://github.com/apigee-apihub-demo/petstore/assets/405/aef9e158-5dfe-4246-9fbe-267c880417e1)
+
+### 6. Clean up.
 
 ```
 # Delete the backend and gateway resources.
