@@ -46,6 +46,7 @@ jobs:
       uses: google-github-actions/setup-gcloud@v1
     - uses: apigee/registry/.github/actions/setup-registry@main
       with:
+        version: "" # implicit "latest"
         name: cloud
         project: ${{ env.GCP_PROJECT }} # set by setup-gcloud action
         address: apigeeregistry.googleapis.com:443
