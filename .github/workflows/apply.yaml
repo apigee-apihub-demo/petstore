@@ -52,4 +52,4 @@ jobs:
         insecure: false
         token-source: gcloud auth print-access-token
     - name: Apply API to cloud registry
-      run: registry apply -f apis -R
+      run: registry apply -f api -R
