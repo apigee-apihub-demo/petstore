@@ -28,7 +28,7 @@ jobs:
 
     env:
       registry-yaml: entity.yaml
-      workload_identity_provider: "projects/459884772743/locations/global/workloadIdentityPools/registry-actions/providers/registry-provider"
+      workload_identity_provider: "projects/459884772743/locations/global/workloadIdentityPools/github/providers/github"
       service_account: "registry-editor@apigee-apihub-demo.iam.gserviceaccount.com"
 
     permissions:
@@ -50,5 +50,6 @@ jobs:
         project: ${{ env.GCP_PROJECT }} # set by setup-gcloud action
         address: apigeeregistry.googleapis.com:443
         insecure: false
+        token-source: gcloud auth print-access-token
     - name: Apply API to cloud registry
       run: registry apply -f apis -R
