@@ -28,7 +28,7 @@ jobs:
 
     env:
       registry-yaml: entity.yaml
-      workload_identity_provider: "projects/459884772743/locations/global/workloadIdentityPools/github/providers/github"
+      workload_identity_provider: "projects/459884772743/locations/global/workloadIdentityPools/registry/providers/registry"
       service_account: "registry-editor@apigee-apihub-demo.iam.gserviceaccount.com"
 
     permissions:
