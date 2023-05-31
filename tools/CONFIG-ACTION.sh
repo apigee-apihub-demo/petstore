@@ -16,7 +16,7 @@
 #
 
 # This file sets variables that allow a GitHub Action associated
-# with this repository.to use Workload Identity Federation.
+# with this repository to use Workload Identity Federation.
 #
 # There are many possible ways to configure this. For full
 # details see the official documentation at:
