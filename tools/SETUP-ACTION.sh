@@ -23,7 +23,7 @@
 # Load some common configuration. See this file for user-editable values.
 source ./tools/CONFIG-ACTION.sh
 
-# Create the service account that will be used to perform actions on the registry.
+# Create a service account that will be used to perform actions on the registry.
 gcloud iam service-accounts create ${SERVICE_ACCOUNT_ID} \
   --display-name="Registry Editor"
 
@@ -32,13 +32,15 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
   --member=serviceAccount:${SERVICE_ACCOUNT} \
   --role=roles/apigeeregistry.editor
 
-# This workload identity pool will generate credentials as needed.
+# Create a workload identity pool that will contain our identity provider.
 gcloud iam workload-identity-pools create ${POOL_ID} \
   --project=${PROJECT_ID} \
   --location=global \
   --display-name="GitHub Actions Activity Pool"
 
-# This provider authenticates users based on the owner of the repo running the action.
+# Create a provider that creates an identity for requests coming from
+# a GitHub repo running an action. The requests must be associated with
+# the GITHUB_OWNER that we specify.
 gcloud iam workload-identity-pools providers create-oidc ${PROVIDER_ID} \
   --project=${PROJECT_ID} \
   --location=global \
@@ -48,7 +50,8 @@ gcloud iam workload-identity-pools providers create-oidc ${PROVIDER_ID} \
   --attribute-condition="attribute.owner == '${GITHUB_OWNER}'" \
   --issuer-uri="https://token.actions.githubusercontent.com"
 
-# This binding allows the workload provider to act as the service account identity.
+# Add a binding that allows any identity from our workload identity
+# pool to act as the service account that we created.
 gcloud iam service-accounts add-iam-policy-binding ${SERVICE_ACCOUNT} \
   --project=${PROJECT_ID} \
   --role="roles/iam.workloadIdentityUser" \
