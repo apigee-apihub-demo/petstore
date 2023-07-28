@@ -8,6 +8,7 @@ metadata:
     apihub-style: apihub-openapi
     apihub-target-users: public
     apihub-team: demo
+    apihub-kind: enrolled
     categories: reference
     provider: apihub-demo
     source: petstore
@@ -15,7 +16,7 @@ metadata:
     apihub-primary-contact: apigee-apihub-demo@google.com
     apihub-primary-contact-description: Apigee API Hub demo managers
 data:
-  displayName: Petstore API
+  displayName: Example Petstore API
   description: Petstore is an OpenAPI demonstration API. It provides a few simple methods for accessing and modifying an inventory of pets.
   recommendedVersion: 1.0.0
   versions:
