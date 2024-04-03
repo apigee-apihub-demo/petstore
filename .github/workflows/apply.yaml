@@ -15,6 +15,8 @@
 name: Run the registry tool
 
 on:
+  schedule:
+    - cron: '0 0 * * *' # each 12:00 UTC
   push:
     branches: [ main ]
 
